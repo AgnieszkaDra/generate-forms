@@ -16,7 +16,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
   }
 
   .form {
@@ -75,5 +74,43 @@ body {
   .button:active {
     background-color: var(--color-grey);
   }
+
+  .select {
+    width: 100%;
+    max-width: 300px; 
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    background-color: var(--color-white);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
   
+  .select__option{
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
   
+  .select-option:hover {
+    background-color: var(--color-grey);
+  }
+
+  .error-message {
+    display: block;
+    font-size: 12px;
+    color: var(--color-grey);
+    background-color: var(--color-white);
+    width: fit-content;
+    margin-top: 8px;
+    padding: 2px;
+    border-radius: 2px;
+    visibility: visible; 
+  }
+  
+  .error-message:empty {
+    background-color: transparent; 
+    visibility: hidden;
+  }
+  
+
