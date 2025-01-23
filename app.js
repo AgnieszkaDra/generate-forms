@@ -1,4 +1,13 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 class FormFieldBase {
     constructor({ label, name, required }) {
         this.label = label;
@@ -39,22 +48,73 @@ class NumberField extends FormFieldBase {
         return input;
     }
 }
+// class SelectField extends FormFieldBase {
+//   options: { label: string; value: string | number }[];
+//   constructor({ label, name, required, options }: { label: string; name: string; required?: boolean; options: { label: string; value: string | number }[] }) {
+//     super({ label, name, required });
+//     this.options = options;
+//   }
+//   createInput(): HTMLSelectElement {
+//     const select = document.createElement('select');
+//     select.className = 'select';
+//     select.name = this.name;
+//     this.options.forEach(option => {
+//       const optionElement = document.createElement('option');
+//       optionElement.value = option.value.toString();
+//       optionElement.textContent = option.label;
+//       select.appendChild(optionElement);
+//     });
+//     return select;
+//   }
+// }
 class SelectField extends FormFieldBase {
     constructor({ label, name, required, options }) {
         super({ label, name, required });
-        this.options = options;
+        this.options = [];
+        if (options) {
+            this.options = options;
+        }
+    }
+    fetchOptionsFromAPI(apiUrl) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield fetch(apiUrl);
+                const countries = yield response.json();
+                this.options = countries.map((country) => ({
+                    label: country.name.common,
+                    value: country.cca2.toLowerCase(), // Use the country code as the value
+                }));
+            }
+            catch (error) {
+                console.error('Error fetching country options:', error);
+            }
+        });
     }
     createInput() {
         const select = document.createElement('select');
         select.className = 'select';
         select.name = this.name;
-        this.options.forEach(option => {
-            const optionElement = document.createElement('option');
-            optionElement.value = option.value.toString();
-            optionElement.textContent = option.label;
-            select.appendChild(optionElement);
-        });
+        if (this.options.length > 0) {
+            this.options.forEach(option => {
+                const optionElement = document.createElement('option');
+                optionElement.value = option.value.toString();
+                optionElement.textContent = option.label;
+                select.appendChild(optionElement);
+            });
+        }
+        else {
+            const loadingOption = document.createElement('option');
+            loadingOption.textContent = 'Loading...';
+            loadingOption.disabled = true;
+            loadingOption.selected = true;
+            select.appendChild(loadingOption);
+        }
         return select;
+    }
+    populateOptions() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.fetchOptionsFromAPI('https://restcountries.com/v3.1/all');
+        });
     }
 }
 class Form {
@@ -123,20 +183,32 @@ class Form {
         }
     }
 }
-const fields = [
-    new TextField({ label: 'Name', name: 'name', placeholder: 'Enter your name', required: true }),
-    new NumberField({ label: 'Age', name: 'age', min: 18, max: 99, required: true }),
-    new SelectField({
-        label: 'Country',
-        name: 'country',
-        required: true,
-        options: [
-            { label: 'United States', value: 'us' },
-            { label: 'Canada', value: 'ca' },
-            { label: 'United Kingdom', value: 'uk' }
-        ]
-    })
-];
-const form = new Form(fields);
-const root = document.querySelector('#root');
-root === null || root === void 0 ? void 0 : root.appendChild(form.render());
+// const fields: FormFieldBase[] = [
+//   new TextField({ label: 'Name', name: 'name', placeholder: 'Enter your name', required: true }),
+//   new NumberField({ label: 'Age', name: 'age', min: 18, max: 99, required: true }),
+//   new SelectField({
+//     label: 'Country',
+//     name: 'country',
+//     required: true,
+//     options: [
+//       { label: 'United States', value: 'us' },
+//       { label: 'Canada', value: 'ca' },
+//       { label: 'United Kingdom', value: 'uk' }
+//     ]
+//   })
+// ];
+// const form = new Form(fields);
+// const root = document.querySelector('#root');
+// root?.appendChild(form.render());
+(() => __awaiter(void 0, void 0, void 0, function* () {
+    const countryField = new SelectField({ label: 'Country', name: 'country', required: true });
+    yield countryField.populateOptions(); // Populate the options dynamically
+    const fields = [
+        new TextField({ label: 'Name', name: 'name', placeholder: 'Enter your name', required: true }),
+        new NumberField({ label: 'Age', name: 'age', min: 18, max: 99, required: true }),
+        countryField,
+    ];
+    const form = new Form(fields);
+    const root = document.querySelector('#root');
+    root === null || root === void 0 ? void 0 : root.appendChild(form.render());
+}))();
