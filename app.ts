@@ -9,7 +9,14 @@ abstract class FormFieldBase {
       this.required = required;
     }
   
-    abstract createInput(): HTMLElement;
+    protected initializeInput(type: string): HTMLInputElement {
+        const input = document.createElement('input');
+        input.type = type;
+        input.name = this.name;
+        return input;
+      }
+    
+      abstract createInput(): HTMLElement;
   }
   
   class TextField extends FormFieldBase {
@@ -21,14 +28,12 @@ abstract class FormFieldBase {
     }
   
     createInput(): HTMLInputElement {
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.name = this.name;
+      const input = this.initializeInput('text');
       input.placeholder = this.placeholder || '';
       return input;
     }
   }
-  
+
   class NumberField extends FormFieldBase {
     min?: number;
     max?: number;
@@ -40,9 +45,7 @@ abstract class FormFieldBase {
     }
   
     createInput(): HTMLInputElement {
-      const input = document.createElement('input');
-      input.type = 'number';
-      input.name = this.name;
+      const input = this.initializeInput('number'); 
       if (this.min !== undefined) input.min = this.min.toString();
       if (this.max !== undefined) input.max = this.max.toString();
       return input;
