@@ -13,6 +13,7 @@ abstract class FormFieldBase {
         const input = document.createElement('input');
         input.type = type;
         input.name = this.name;
+        input.className = 'input'
         return input;
       }
     
@@ -62,6 +63,7 @@ abstract class FormFieldBase {
   
     createInput(): HTMLSelectElement {
       const select = document.createElement('select');
+      select.className = 'select';
       select.name = this.name;
       this.options.forEach(option => {
         const optionElement = document.createElement('option');
@@ -80,6 +82,7 @@ abstract class FormFieldBase {
     constructor(fields: FormFieldBase[]) {
       this.fields = fields;
       this.formElement = document.createElement('form');
+      this.formElement.className = 'form';
     }
   
     render(): HTMLFormElement {
@@ -87,6 +90,7 @@ abstract class FormFieldBase {
         const input = field.createInput();
   
         const label = document.createElement('label');
+        label.className = 'label';
         label.textContent = field.label;
         label.setAttribute('for', field.name);
   
@@ -98,6 +102,7 @@ abstract class FormFieldBase {
       });
   
       const submitButton = document.createElement('button');
+      submitButton.className = 'button';
       submitButton.type = 'submit';
       submitButton.textContent = 'Submit';
       this.formElement.appendChild(submitButton);
@@ -171,4 +176,5 @@ abstract class FormFieldBase {
   
  
   const form = new Form(fields);
-  document.body.appendChild(form.render());
+  const root = document.querySelector('#root');
+  root?.appendChild(form.render());

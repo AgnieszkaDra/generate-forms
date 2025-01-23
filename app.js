@@ -5,6 +5,13 @@ class FormFieldBase {
         this.name = name;
         this.required = required;
     }
+    initializeInput(type) {
+        const input = document.createElement('input');
+        input.type = type;
+        input.name = this.name;
+        input.className = 'input';
+        return input;
+    }
 }
 class TextField extends FormFieldBase {
     constructor({ label, name, required, placeholder }) {
@@ -12,9 +19,7 @@ class TextField extends FormFieldBase {
         this.placeholder = placeholder;
     }
     createInput() {
-        const input = document.createElement('input');
-        input.type = 'text';
-        input.name = this.name;
+        const input = this.initializeInput('text');
         input.placeholder = this.placeholder || '';
         return input;
     }
@@ -26,9 +31,7 @@ class NumberField extends FormFieldBase {
         this.max = max;
     }
     createInput() {
-        const input = document.createElement('input');
-        input.type = 'number';
-        input.name = this.name;
+        const input = this.initializeInput('number');
         if (this.min !== undefined)
             input.min = this.min.toString();
         if (this.max !== undefined)
@@ -43,6 +46,7 @@ class SelectField extends FormFieldBase {
     }
     createInput() {
         const select = document.createElement('select');
+        select.className = 'select';
         select.name = this.name;
         this.options.forEach(option => {
             const optionElement = document.createElement('option');
@@ -57,11 +61,13 @@ class Form {
     constructor(fields) {
         this.fields = fields;
         this.formElement = document.createElement('form');
+        this.formElement.className = 'form';
     }
     render() {
         this.fields.forEach(field => {
             const input = field.createInput();
             const label = document.createElement('label');
+            label.className = 'label';
             label.textContent = field.label;
             label.setAttribute('for', field.name);
             const wrapper = document.createElement('div');
@@ -70,6 +76,7 @@ class Form {
             this.formElement.appendChild(wrapper);
         });
         const submitButton = document.createElement('button');
+        submitButton.className = 'button';
         submitButton.type = 'submit';
         submitButton.textContent = 'Submit';
         this.formElement.appendChild(submitButton);
@@ -116,7 +123,6 @@ class Form {
         }
     }
 }
-// Initialize fields
 const fields = [
     new TextField({ label: 'Name', name: 'name', placeholder: 'Enter your name', required: true }),
     new NumberField({ label: 'Age', name: 'age', min: 18, max: 99, required: true }),
@@ -131,6 +137,6 @@ const fields = [
         ]
     })
 ];
-// Create and render form
 const form = new Form(fields);
-document.body.appendChild(form.render());
+const root = document.querySelector('#root');
+root === null || root === void 0 ? void 0 : root.appendChild(form.render());
