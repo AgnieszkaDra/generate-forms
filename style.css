@@ -1,0 +1,22 @@
+:root {
+    --color-background: rgb(27, 49, 73);
+    --color-green: rgb(19, 176, 172);
+    --color-dark-green: rgb(20, 114, 123);
+    --color-white: rgb(255, 255, 255);
+    --color-black: rgb(86, 93, 104);
+    --color-grey: rgb(106, 118, 128);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-white);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  
