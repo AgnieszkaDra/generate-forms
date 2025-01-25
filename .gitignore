@@ -1,0 +1,41 @@
+# Node modules
+node_modules/
+
+# Build output
+/dist/
+/build/
+
+# TypeScript
+*.tsbuildinfo
+
+# Vite
+/.vite/
+/.vite/
+
+# Dependency directories
+/.pnp/
+/.pnp.js
+
+# IDE and editor files
+.vscode/
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Log files
+*.log
+
+# NPM
+package-lock.json
+
+# Yarn
+yarn.lock
+
+# dotenv environment variables file
+.env
+.env.local
+.env.*.local
