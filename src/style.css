@@ -19,6 +19,7 @@ body {
   }
 
   .form {
+    margin-top: 100px;
     background-color: var(--color-dark-green);
     padding: 2rem;
     border-radius: 10px;

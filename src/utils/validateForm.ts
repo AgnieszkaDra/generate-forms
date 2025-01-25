@@ -3,21 +3,20 @@ import { InputField } from '../types/InputField';
 export const validateForm = (
   fields: InputField[], 
   formData: Record<string, string | number>,
-  formElement?: HTMLFormElement
+  formElement: HTMLFormElement
 ): string[] => {
   const errors: string[] = [];
 
   fields.forEach(field => {
     const value = formData[field.name];
    
-    const label = formElement?.querySelector(`label[for="${field.name}"]`);
+    const label = formElement.querySelector(`label[for="${field.name}"]`);
     
-    const previousError = formElement?.querySelector(`#${field.name}-error`);
-    if (previousError) {
-      previousError.remove();
+    const previousErrors = formElement.querySelectorAll(`#${field.name}-error`);
+    if (previousErrors) {
+      previousErrors.forEach(error => error.remove());
     }
 
-  
     if (field.required && (value === undefined || value === '')) {
       errors.push(`${field.label} is required.`);
       if (label) {

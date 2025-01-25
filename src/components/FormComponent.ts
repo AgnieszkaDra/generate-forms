@@ -1,8 +1,6 @@
 import { InputField } from '../types/InputField';
-import { ButtonField  } from '../types/ButtonField';
 import { createInputForField } from '../utils/createFields';
 import { validateForm } from '../utils/validateForm';
-import { isSubmitField, isInputField } from '../utils/typeGuards';
 
 export const FormComponent = (inputs: InputField[]): HTMLFormElement => {
   const form = document.createElement('form');
@@ -28,6 +26,7 @@ export const FormComponent = (inputs: InputField[]): HTMLFormElement => {
       wrapper.appendChild(errorSpan);
 
       form.appendChild(wrapper);
+
     } )
 
       const submitButton = document.createElement('button');
@@ -37,20 +36,18 @@ export const FormComponent = (inputs: InputField[]): HTMLFormElement => {
       
       form.appendChild(submitButton);
     
-
-    
-   form.addEventListener('submit', (event) => {
+  form.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const formData: Record<string, string | number> = {};
     inputs.forEach(element => {
-      if (isInputField(element)) {
+    
         const input = form.querySelector(`[name=${element.name}]`);
         if (input instanceof HTMLInputElement || input instanceof HTMLSelectElement) {
           formData[element.name] = input.value;
         }
       }
-    });
+    );
 
     const errors = validateForm(inputs, formData, form);
 
@@ -63,8 +60,5 @@ export const FormComponent = (inputs: InputField[]): HTMLFormElement => {
 
   return form;
   };
-
-  
-
 
 export default FormComponent;

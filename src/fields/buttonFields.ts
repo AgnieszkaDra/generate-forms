@@ -1,8 +1,8 @@
-import { ButtonField } from '../types/ButtonField';
+// import { ButtonField } from '../types/ButtonField';
 
-const buttonFields: ButtonField[] = [
-  { category: 'button', type: 'submit', name: 'Send' },  // Submit button
-  { category: 'button', type: 'reset', name: 'Reset' }   // Reset button
-];
+// const buttonFields: ButtonField[] = [
+//   { category: 'button', type: 'submit', name: 'Send' },  
+//   { category: 'button', type: 'reset', name: 'Reset' }  
+// ];
 
-export default buttonFields;
+// export default buttonFields;
