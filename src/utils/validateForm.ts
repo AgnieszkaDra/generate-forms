@@ -1,4 +1,5 @@
 import { InputField } from '../types/InputField';
+import showSuccessMessage from './showSuccessMessage';
 
 export const validateForm = (
   fields: InputField[], 
@@ -7,15 +8,16 @@ export const validateForm = (
 ): string[] => {
   const errors: string[] = [];
 
-  fields.forEach(field => {
+  fields.forEach((field) => {
     const value = formData[field.name];
-   
+
     const label = formElement.querySelector(`label[for="${field.name}"]`);
-    
+
     const previousErrors = formElement.querySelectorAll(`#${field.name}-error`);
     if (previousErrors) {
-      previousErrors.forEach(error => error.remove());
+      previousErrors.forEach((error) => error.remove());
     }
+
 
     if (field.required && (value === undefined || value === '')) {
       errors.push(`${field.label} is required.`);
@@ -27,6 +29,7 @@ export const validateForm = (
         label.parentElement?.appendChild(error);
       }
     }
+
 
     if (field.type === 'number') {
       const numValue = Number(value);
@@ -52,6 +55,7 @@ export const validateForm = (
       }
     }
 
+
     if (field.type === 'select' && !value) {
       errors.push(`Please select a valid ${field.label}.`);
       if (label) {
@@ -64,7 +68,15 @@ export const validateForm = (
     }
   });
 
+
+  if (errors.length > 0) {
+    console.error("Form validation errors:", errors);
+  } else {
+    console.log("Form is valid:", formData);
+    showSuccessMessage(formElement); 
+  }
+
   return errors;
-}
+};
 
 export default validateForm;

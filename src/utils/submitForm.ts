@@ -13,13 +13,8 @@ export const submitForm = (form: HTMLFormElement, inputs: InputField[]): void =>
         }
       });
   
-      const errors = validateForm(inputs, formData, form);
-  
-      if (errors.length > 0) {
-        console.error('Form validation errors:', errors);
-      } else {
-        console.log('Form is valid:', formData);
-      }
+      validateForm(inputs, formData, form);
+      
     });
   };
   
