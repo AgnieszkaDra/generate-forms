@@ -2,6 +2,7 @@ import { InputField, TextField, NumberField, SelectField } from '../types/InputF
 import '../../src/style.css';
 
 const createWrapperForInput = (field: InputField): HTMLDivElement => {
+
   const wrapper = document.createElement('div');
   
   const label = document.createElement('label');
@@ -9,11 +10,6 @@ const createWrapperForInput = (field: InputField): HTMLDivElement => {
   label.textContent = field.label;
   label.setAttribute('for', field.name);
   wrapper.appendChild(label);
-
-  const errorSpan = document.createElement('span');
-  errorSpan.className = 'error-message';
-  errorSpan.id = `${field.name}-error`;
-  wrapper.appendChild(errorSpan);
 
   return wrapper;
 };
