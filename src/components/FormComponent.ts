@@ -4,7 +4,7 @@ import { createInputForField } from '../utils/createFields';
 import { validateForm } from '../utils/validateForm';
 import { isSubmitField, isInputField } from '../utils/typeGuards';
 
-export const FormComponent = (inputs: InputField[], buttons: ButtonField[] ): HTMLFormElement => {
+export const FormComponent = (inputs: InputField[]): HTMLFormElement => {
   const form = document.createElement('form');
   form.className = 'form';
 
@@ -18,27 +18,26 @@ export const FormComponent = (inputs: InputField[], buttons: ButtonField[] ): HT
       label.textContent = element.label;
       label.setAttribute('for', element.name);
 
+      const errorSpan = document.createElement('span');
+      errorSpan.className = 'error-message';
+      errorSpan.id = `${element.name}-error`;
+
       const wrapper = document.createElement('div');
       wrapper.appendChild(label);
       wrapper.appendChild(input);
+      wrapper.appendChild(errorSpan);
 
       form.appendChild(wrapper);
     } )
 
-    buttons.forEach(button => {
-       if (isSubmitField(button)) {
-      
-
       const submitButton = document.createElement('button');
       submitButton.className = 'button';
-      submitButton.type = button.type;
-      submitButton.textContent = button.name;
+      submitButton.type = 'submit';
+      submitButton.textContent = 'Send';
       
-      
-
       form.appendChild(submitButton);
-    }
-    })
+    
+
     
    form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -53,7 +52,7 @@ export const FormComponent = (inputs: InputField[], buttons: ButtonField[] ): HT
       }
     });
 
-    const errors = validateForm(inputs, formData);
+    const errors = validateForm(inputs, formData, form);
 
     if (errors.length > 0) {
       console.error('Form validation errors:', errors);

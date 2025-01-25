@@ -2,7 +2,7 @@ import { InputField } from './types/InputField';
 import { ButtonField } from './types/ButtonField';
 import { FormComponent } from './components/FormComponent';
 import './style.css'
-import inputFields from './fields/inputField';
+import formFields from './fields/formFields';
 import buttonFields from './fields/buttonFields';
 
 // const fields: InputField[] = [
@@ -28,7 +28,7 @@ import buttonFields from './fields/buttonFields';
 
 
 
-const form = FormComponent(inputFields, buttonFields);
+const form = FormComponent(formFields);
 document.body.appendChild(form);
 
 

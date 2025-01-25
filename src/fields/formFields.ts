@@ -1,7 +1,6 @@
 import { InputField } from '../types/InputField';
 
-const inputFields: InputField[] = [
-  { category: 'input', type: 'text', label: 'Name', name: 'name', placeholder: 'Enter your name', required: true },
+const formFields: InputField[] = [
   { category: 'input', type: 'text', label: 'Name', name: 'name', placeholder: 'Enter your name', required: true },
   { category: 'input', type: 'number', label: 'Age', name: 'age', min: 18, max: 99, required: true },
   {
@@ -18,4 +17,4 @@ const inputFields: InputField[] = [
   }
 ];
 
-export default inputFields;
+export default formFields;
