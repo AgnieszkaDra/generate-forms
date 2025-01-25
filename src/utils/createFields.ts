@@ -1,4 +1,4 @@
-import { FormField, TextField, NumberField, SelectField } from '../types/FormField';
+import { InputField, TextField, NumberField, SelectField } from '../types/InputField';
 import '../../src/style.css'
 
 export const createTextField = (field: TextField): HTMLInputElement => {
@@ -33,7 +33,7 @@ export const createSelectField = (field: SelectField): HTMLSelectElement => {
   return select;
 };
 
-export const createInputForField = (field: FormField): HTMLElement => {
+export const createInputForField = (field: InputField): HTMLElement => {
   switch (field.type) {
     case 'text':
       return createTextField(field as TextField);
@@ -42,7 +42,7 @@ export const createInputForField = (field: FormField): HTMLElement => {
     case 'select':
       return createSelectField(field as SelectField);
     default:
-      throw new Error(`Unsupported field type: ${(field as FormField).type}`);
+      throw new Error(`Unsupported field type: ${(field as InputField).type}`);
   }
 };
 

@@ -1,4 +1,5 @@
 export type FormFieldBase = {
+    category: 'input';
     label: string;
     name: string;
     required?: boolean;
@@ -19,5 +20,10 @@ export type FormFieldBase = {
     type: 'select';
     options: { label: string; value: string | number }[];
   };
+
+  export type ButtonElement = FormFieldBase & {
+    type: 'select';
+    options: { label: string; value: string | number }[];
+  };
   
-  export type FormField = TextField | NumberField | SelectField;
+  export type InputField = TextField | NumberField | SelectField;

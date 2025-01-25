@@ -1,45 +1,59 @@
-import { FormField } from '../types/FormField';
+import { InputField } from '../types/InputField';
+import { ButtonField  } from '../types/ButtonField';
 import { createInputForField } from '../utils/createFields';
 import { validateForm } from '../utils/validateForm';
+import { isSubmitField, isInputField } from '../utils/typeGuards';
 
-export const FormComponent = (fields: FormField[]): HTMLFormElement => {
+export const FormComponent = (inputs: InputField[], buttons: ButtonField[] ): HTMLFormElement => {
   const form = document.createElement('form');
   form.className = 'form';
 
-  fields.forEach(field => {
-    const input = createInputForField(field);
 
-    const label = document.createElement('label');
-    label.className = 'label';
-    label.textContent = field.label;
-    label.setAttribute('for', field.name);
+  inputs.forEach(element => {
+ 
+      const input = createInputForField(element);
 
-    const wrapper = document.createElement('div');
-    wrapper.appendChild(label);
-    wrapper.appendChild(input);
+      const label = document.createElement('label');
+      label.className = 'label';
+      label.textContent = element.label;
+      label.setAttribute('for', element.name);
 
-    form.appendChild(wrapper);
-  });
+      const wrapper = document.createElement('div');
+      wrapper.appendChild(label);
+      wrapper.appendChild(input);
 
-  const submitButton = document.createElement('button');
-  submitButton.className = 'button';
-  submitButton.className = 'button';
-  submitButton.type = 'submit';
-  submitButton.textContent = 'Submit';
-  form.appendChild(submitButton);
+      form.appendChild(wrapper);
+    } )
 
-  form.addEventListener('submit', (event) => {
+    buttons.forEach(button => {
+       if (isSubmitField(button)) {
+      
+
+      const submitButton = document.createElement('button');
+      submitButton.className = 'button';
+      submitButton.type = button.type;
+      submitButton.textContent = button.name;
+      
+      
+
+      form.appendChild(submitButton);
+    }
+    })
+    
+   form.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const formData: Record<string, string | number> = {};
-    fields.forEach(field => {
-      const input = form.querySelector(`[name=${field.name}]`);
-      if (input instanceof HTMLInputElement || input instanceof HTMLSelectElement) {
-        formData[field.name] = input.value;
+    inputs.forEach(element => {
+      if (isInputField(element)) {
+        const input = form.querySelector(`[name=${element.name}]`);
+        if (input instanceof HTMLInputElement || input instanceof HTMLSelectElement) {
+          formData[element.name] = input.value;
+        }
       }
     });
 
-    const errors = validateForm(fields, formData);
+    const errors = validateForm(inputs, formData);
 
     if (errors.length > 0) {
       console.error('Form validation errors:', errors);
@@ -49,6 +63,9 @@ export const FormComponent = (fields: FormField[]): HTMLFormElement => {
   });
 
   return form;
-};
+  };
 
-export default FormComponent
+  
+
+
+export default FormComponent;

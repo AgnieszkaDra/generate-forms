@@ -1,4 +1,4 @@
-import { FormField } from '../types/FormField';
+import { FormField } from '../types/InputField';
 
 export const validateForm = (fields: FormField[], formData: Record<string, string | number>): string[] => {
   const errors: string[] = [];
