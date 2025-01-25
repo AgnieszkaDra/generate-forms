@@ -1,0 +1,100 @@
+:root {
+    --color-background: rgb(27, 49, 73);
+    --color-green: rgb(19, 176, 172);
+    --color-dark-green: rgb(20, 114, 123);
+    --color-white: rgb(255, 255, 255);
+    --color-black: rgb(86, 93, 104);
+    --color-grey: rgb(106, 118, 128);
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--color-background);
+    color: var(--color-white);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form {
+    background-color: var(--color-dark-green);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 400px;
+  }
+  
+  .form div {
+    margin-bottom: 1.5rem;
+  }
+  
+  .label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: var(--color-white);
+  }
+  
+  .input,
+  select {
+    width: 100%;
+    padding: 0.75rem;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--color-white);
+    color: var(--color-black);
+    font-size: 1rem;
+  }
+  
+  input:focus,
+  select:focus {
+    outline: 2px solid var(--color-green);
+  }
+  
+  .button {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--color-green);
+    border: none;
+    border-radius: 5px;
+    color: var(--color-white);
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: var(--color-dark-green);
+  }
+  
+  .button:active {
+    background-color: var(--color-grey);
+  }
+
+  .select {
+    width: 100%;
+    max-width: 300px; 
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    background-color: var(--color-white);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+  
+  .select__option{
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  
+  .select-option:hover {
+    background-color: var(--color-grey);
+  }
+
+
+  

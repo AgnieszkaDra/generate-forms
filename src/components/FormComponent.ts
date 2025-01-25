@@ -4,11 +4,13 @@ import { validateForm } from '../utils/validateForm';
 
 export const FormComponent = (fields: FormField[]): HTMLFormElement => {
   const form = document.createElement('form');
+  form.className = 'form';
 
   fields.forEach(field => {
     const input = createInputForField(field);
 
     const label = document.createElement('label');
+    label.className = 'label';
     label.textContent = field.label;
     label.setAttribute('for', field.name);
 
@@ -20,6 +22,8 @@ export const FormComponent = (fields: FormField[]): HTMLFormElement => {
   });
 
   const submitButton = document.createElement('button');
+  submitButton.className = 'button';
+  submitButton.className = 'button';
   submitButton.type = 'submit';
   submitButton.textContent = 'Submit';
   form.appendChild(submitButton);

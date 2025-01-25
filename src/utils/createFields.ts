@@ -1,7 +1,9 @@
 import { FormField, TextField, NumberField, SelectField } from '../types/FormField';
+import '../../src/style.css'
 
 export const createTextField = (field: TextField): HTMLInputElement => {
   const input = document.createElement('input');
+  input.className = 'input';
   input.type = 'text';
   input.placeholder = field.placeholder ?? '';
   input.name = field.name;
@@ -10,6 +12,7 @@ export const createTextField = (field: TextField): HTMLInputElement => {
 
 export const createNumberField = (field: NumberField): HTMLInputElement => {
   const input = document.createElement('input');
+  input.className = 'input';
   input.type = 'number';
   if (field.min !== undefined) input.min = field.min.toString();
   if (field.max !== undefined) input.max = field.max.toString();
@@ -19,6 +22,7 @@ export const createNumberField = (field: NumberField): HTMLInputElement => {
 
 export const createSelectField = (field: SelectField): HTMLSelectElement => {
   const select = document.createElement('select');
+  select.className = 'select';
   field.options.forEach(option => {
     const optionElement = document.createElement('option');
     optionElement.value = option.value.toString();

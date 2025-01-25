@@ -1,5 +1,6 @@
 import { FormField } from './types/FormField';
 import { FormComponent } from './components/FormComponent';
+import './style.css'
 
 const fields: FormField[] = [
   { type: 'text', label: 'Name', name: 'name', placeholder: 'Enter your name', required: true },
