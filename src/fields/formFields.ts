@@ -1,6 +1,6 @@
 import { InputField } from '../types/InputField';
 
-const formFields: InputField[] = [
+export const formFields: InputField[] = [
   { category: 'input', type: 'text', label: 'Name', name: 'name', placeholder: 'Enter your name', required: true },
   { category: 'input', type: 'number', label: 'Age', name: 'age', min: 18, max: 99, required: true },
   {
